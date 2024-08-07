@@ -14,8 +14,8 @@
         }
         canvas {
             margin-top: 20px;
-            width: 400px; /* Display size */
-            height: 400px; /* Display size */
+            width: 400px;
+            height: 400px;
         }
         .input-group {
             margin: 10px 0;
@@ -37,12 +37,12 @@
 </head>
 <body>
     <div class="input-group" id="question-container">
-        <p id="question-text">Question will appear here</p>
+        <p id="question-text">Questions will appear here</p>
         <div id="button-group" class="button-group">
             <!-- Buttons will be inserted here by JavaScript -->
         </div>
     </div>
-    <canvas id="circleCanvas" width="400" height="400"></canvas> <!-- Adjusted size -->
+    <canvas id="circleCanvas" width="400" height="400"></canvas>
     <div id="result"></div>
     <div id="end-screen">
         <h2>Thank you for completing the questions!</h2>
@@ -50,7 +50,7 @@
     </div>
 
     <script>
-        const questionsUrl = './questions.txt'; // Replace with your file URL
+        const questionsUrl = './questions.txt'; // Local file path
 
         let questionData = [];
         let answers = [];
