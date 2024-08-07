@@ -13,8 +13,9 @@
             margin: 50px;
         }
         canvas {
-            border: 1px solid black;
             margin-top: 20px;
+            width: 400px; /* Display size */
+            height: 400px; /* Display size */
         }
         .input-group {
             margin: 10px 0;
@@ -27,12 +28,18 @@
         <input type="number" id="input" step="any">
     </div>
     <button id="submit-btn">Submit</button>
-    <canvas id="circleCanvas" width="400" height="400"></canvas>
+    <canvas id="circleCanvas" width="800" height="800"></canvas> <!-- Higher resolution -->
+    <div id="result"></div>
 
     <script>
-        let step = 1;
-        let radius = 0;
-        let angle = 0;
+        const questions = [
+            'Enter Radius:',
+            'Enter Angle (in degrees):',
+            'Enter another number:',
+            'Enter one more number:'
+        ];
+        let answers = [];
+        let currentQuestion = 0;
 
         document.getElementById('submit-btn').addEventListener('click', handleInput);
 
@@ -42,19 +49,22 @@
         function handleInput() {
             const inputValue = parseFloat(document.getElementById('input').value);
 
-            if (step === 1) {
-                radius = inputValue;
-                step++;
-                updateQuestion('Enter Angle (in degrees):');
-            } else if (step === 2) {
-                angle = inputValue;
-                plot();
+            if (!isNaN(inputValue)) {
+                answers.push(inputValue);
+                currentQuestion++;
+
+                if (currentQuestion < questions.length) {
+                    updateQuestion();
+                } else {
+                    performCalculations();
+                    plot();
+                }
             }
         }
 
-        function updateQuestion(question) {
+        function updateQuestion() {
             const label = document.querySelector('#question-container label');
-            label.textContent = question;
+            label.textContent = questions[currentQuestion];
             document.getElementById('input').value = '';
         }
 
@@ -66,6 +76,9 @@
 
             // Clear the canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Set line width for smoother circles
+            ctx.lineWidth = 2;
 
             // Draw the two fixed circles
             ctx.beginPath();
@@ -89,6 +102,9 @@
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
 
+            const radius = answers[0];
+            const angle = answers[1];
+
             // Convert angle to radians
             const angleInRadians = angle * (Math.PI / 180);
 
@@ -105,10 +121,29 @@
             ctx.fillStyle = 'red';
             ctx.fill();
 
-            // Reset step and update question for the next input
-            step = 1;
-            updateQuestion('Enter Radius:');
+            // Display results
+            displayResults();
         }
+
+        function performCalculations() {
+            // Example calculations using answers
+            const sum = answers.reduce((acc, value) => acc + value, 0);
+            const product = answers.reduce((acc, value) => acc * value, 1);
+            const average = sum / answers.length;
+
+            // You can perform other calculations as needed
+
+            // Display results
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <p>Sum: ${sum}</p>
+                <p>Product: ${product}</p>
+                <p>Average: ${average}</p>
+            `;
+        }
+
+        // Initialize the first question
+        updateQuestion();
     </script>
 </body>
 </html>
