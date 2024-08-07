@@ -22,22 +22,44 @@
     </style>
 </head>
 <body>
-    <div class="input-group">
-        <label for="radius">Radius:</label>
-        <input type="number" id="radius" step="any">
+    <div class="input-group" id="question-container">
+        <label for="input">Enter Radius:</label>
+        <input type="number" id="input" step="any">
     </div>
-    <div class="input-group">
-        <label for="angle">Angle (in degrees):</label>
-        <input type="number" id="angle" step="any">
-    </div>
-    <button onclick="plotPoint()">Plot Point</button>
+    <button id="submit-btn">Submit</button>
     <canvas id="circleCanvas" width="400" height="400"></canvas>
 
     <script>
-        function plotPoint() {
-            // Get the input values
-            const radius = parseFloat(document.getElementById('radius').value);
-            const angle = parseFloat(document.getElementById('angle').value);
+        let step = 1;
+        let radius = 0;
+        let angle = 0;
+
+        document.getElementById('submit-btn').addEventListener('click', handleInput);
+
+        function handleInput() {
+            const inputValue = parseFloat(document.getElementById('input').value);
+
+            if (step === 1) {
+                radius = inputValue;
+                step++;
+                updateQuestion('Enter Angle (in degrees):');
+            } else if (step === 2) {
+                angle = inputValue;
+                plot();
+            }
+        }
+
+        function updateQuestion(question) {
+            const label = document.querySelector('#question-container label');
+            label.textContent = question;
+            document.getElementById('input').value = '';
+        }
+
+        function plot() {
+            const canvas = document.getElementById('circleCanvas');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
 
             // Convert angle to radians
             const angleInRadians = angle * (Math.PI / 180);
@@ -46,16 +68,10 @@
             const x = radius * Math.cos(angleInRadians);
             const y = radius * Math.sin(angleInRadians);
 
-            // Get the canvas and context
-            const canvas = document.getElementById('circleCanvas');
-            const ctx = canvas.getContext('2d');
-
             // Clear the canvas
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             // Draw the circle
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
             ctx.beginPath();
             ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
             ctx.stroke();
@@ -65,6 +81,10 @@
             ctx.arc(centerX + x, centerY - y, 5, 0, 2 * Math.PI);
             ctx.fillStyle = 'red';
             ctx.fill();
+
+            // Reset step and update question for the next input
+            step = 1;
+            updateQuestion('Enter Radius:');
         }
     </script>
 </body>
