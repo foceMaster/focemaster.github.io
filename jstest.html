@@ -13,7 +13,7 @@
             margin: 50px;
         }
         canvas {
-            border: 0px solid black;
+            border: 1px solid black;
             margin-top: 20px;
         }
         .input-group {
@@ -36,6 +36,9 @@
 
         document.getElementById('submit-btn').addEventListener('click', handleInput);
 
+        // Initial plot with the two circles and the origin point
+        drawBase();
+
         function handleInput() {
             const inputValue = parseFloat(document.getElementById('input').value);
 
@@ -55,6 +58,31 @@
             document.getElementById('input').value = '';
         }
 
+        function drawBase() {
+            const canvas = document.getElementById('circleCanvas');
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the two fixed circles
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 100, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 200, 0, 2 * Math.PI);
+            ctx.stroke();
+
+            // Draw the origin point
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = 'black';
+            ctx.fill();
+        }
+
         function plot() {
             const canvas = document.getElementById('circleCanvas');
             const ctx = canvas.getContext('2d');
@@ -68,15 +96,10 @@
             const x = radius * Math.cos(angleInRadians);
             const y = radius * Math.sin(angleInRadians);
 
-            // Clear the canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Redraw the base circles and origin point
+            drawBase();
 
-            // Draw the circle
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-            ctx.stroke();
-
-            // Draw the point
+            // Draw the new point
             ctx.beginPath();
             ctx.arc(centerX + x, centerY - y, 5, 0, 2 * Math.PI);
             ctx.fillStyle = 'red';
