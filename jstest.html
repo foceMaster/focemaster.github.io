@@ -42,7 +42,6 @@
             <!-- Buttons will be inserted here by JavaScript -->
         </div>
     </div>
-    <button id="next-btn">Next</button>
     <canvas id="circleCanvas" width="800" height="800"></canvas> <!-- Higher resolution -->
     <div id="result"></div>
     <div id="end-screen">
@@ -77,29 +76,22 @@
         let answers = [];
         let currentQuestion = 0;
 
-        document.getElementById('next-btn').addEventListener('click', handleNext);
-
         // Initial plot with the two circles and the origin point
         drawBase();
 
         function handleOptionSelection(option) {
-            answers.push(option);
-            currentQuestion++;
             if (currentQuestion < questionData.length) {
-                updateQuestion();
-            } else {
-                performCalculations();
-                plot();
-                showEndScreen();
-            }
-        }
+                answers.push(option);
+                currentQuestion++;
 
-        function handleNext() {
-            if (answers.length === currentQuestion) {
-                alert('Please select an option for the current question.');
-                return;
+                if (currentQuestion < questionData.length) {
+                    updateQuestion();
+                } else {
+                    performCalculations();
+                    plot();
+                    showEndScreen();
+                }
             }
-            handleOptionSelection(answers[currentQuestion]);
         }
 
         function updateQuestion() {
@@ -227,7 +219,6 @@
 
         function showEndScreen() {
             document.getElementById('question-container').style.display = 'none';
-            document.getElementById('next-btn').style.display = 'none';
             document.getElementById('end-screen').style.display = 'block';
         }
 
