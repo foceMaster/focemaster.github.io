@@ -225,6 +225,9 @@
             const totalPoints = window.totalPoints || {};
             let angle = 0;
 
+            const centerX = 400 / 2; // centerX of the canvas
+            const centerY = 400 / 2; // centerY of the canvas
+
             window.edgePoints.forEach((point, index) => {
                 const pointType = `type${index + 1}`;
                 if (totalPoints[pointType]) {
