@@ -19,6 +19,16 @@
         }
         .input-group {
             margin: 10px 0;
+            text-align: center;
+        }
+        .button-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .button-group button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
         }
         #end-screen {
             display: none;
@@ -27,14 +37,12 @@
 </head>
 <body>
     <div class="input-group" id="question-container">
-        <label for="input">Choose an Option:</label>
-        <select id="input">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-            <option value="maybe">Maybe</option>
-        </select>
+        <p id="question-text">Question will appear here</p>
+        <div id="button-group" class="button-group">
+            <!-- Buttons will be inserted here by JavaScript -->
+        </div>
     </div>
-    <button id="submit-btn">Submit</button>
+    <button id="next-btn">Next</button>
     <canvas id="circleCanvas" width="800" height="800"></canvas> <!-- Higher resolution -->
     <div id="result"></div>
     <div id="end-screen">
@@ -69,41 +77,43 @@
         let answers = [];
         let currentQuestion = 0;
 
-        document.getElementById('submit-btn').addEventListener('click', handleInput);
+        document.getElementById('next-btn').addEventListener('click', handleNext);
 
         // Initial plot with the two circles and the origin point
         drawBase();
 
-        function handleInput() {
-            const selectElement = document.getElementById('input');
-            const inputValue = selectElement.value;
-
-            if (inputValue) {
-                answers.push(inputValue);
-                currentQuestion++;
-
-                if (currentQuestion < questionData.length) {
-                    updateQuestion();
-                } else {
-                    performCalculations();
-                    plot();
-                    showEndScreen();
-                }
+        function handleOptionSelection(option) {
+            answers.push(option);
+            currentQuestion++;
+            if (currentQuestion < questionData.length) {
+                updateQuestion();
+            } else {
+                performCalculations();
+                plot();
+                showEndScreen();
             }
         }
 
+        function handleNext() {
+            if (answers.length === currentQuestion) {
+                alert('Please select an option for the current question.');
+                return;
+            }
+            handleOptionSelection(answers[currentQuestion]);
+        }
+
         function updateQuestion() {
-            const label = document.querySelector('#question-container label');
-            label.textContent = questionData[currentQuestion].text;
+            const question = questionData[currentQuestion];
+            document.getElementById('question-text').textContent = question.text;
 
-            const selectElement = document.getElementById('input');
-            selectElement.innerHTML = '';
+            const buttonGroup = document.getElementById('button-group');
+            buttonGroup.innerHTML = '';
 
-            questionData[currentQuestion].options.forEach(option => {
-                const optionElement = document.createElement('option');
-                optionElement.value = option;
-                optionElement.textContent = option;
-                selectElement.appendChild(optionElement);
+            question.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option.charAt(0).toUpperCase() + option.slice(1);
+                button.addEventListener('click', () => handleOptionSelection(option));
+                buttonGroup.appendChild(button);
             });
         }
 
@@ -141,7 +151,6 @@
             const centerX = canvas.width / 2;
             const centerY = canvas.height / 2;
 
-            // Use calculated radius and angle
             const radius = calculateRadius();
             const angle = calculateAngle();
 
@@ -171,7 +180,7 @@
             answers.forEach((answer, index) => {
                 const question = questionData[index];
                 const points = question.points;
-                
+
                 switch (answer) {
                     case 'yes':
                         Object.keys(points).forEach(type => {
@@ -218,7 +227,7 @@
 
         function showEndScreen() {
             document.getElementById('question-container').style.display = 'none';
-            document.getElementById('submit-btn').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
             document.getElementById('end-screen').style.display = 'block';
         }
 
