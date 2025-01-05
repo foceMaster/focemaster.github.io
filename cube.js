@@ -3,18 +3,21 @@ document.getElementById('connectButton').addEventListener('click', connectToCube
 async function connectToCube() {
   try {
     const device = await navigator.bluetooth.requestDevice({
-      filters: [{ services: ['your-cube-service-uuid'] }] // Replace with Giiker cube's service UUID
+      acceptAllDevices: true, // Allows discovering any Bluetooth device
+      optionalServices: []   // You can specify empty or discover services later
     });
 
-    // Connect to the selected device
+    console.log('Selected device:', device.name || 'Unnamed device');
     const server = await device.gatt.connect();
-    document.getElementById('status').textContent = 'Status: Connected to Cube';
+    console.log('Connected to GATT server:', server);
 
-    // You can now interact with the cube's services and characteristics
-    const service = await server.getPrimaryService('your-cube-service-uuid');
-    // Perform actions on the cube like reading data, sending commands, etc.
+    // List all available services (UUIDs will be shown)
+    const services = await server.getPrimaryServices();
+    console.log('Available services:');
+    for (const service of services) {
+      console.log(`- ${service.uuid}`);
+    }
   } catch (error) {
-    console.log('Connection failed', error);
-    document.getElementById('status').textContent = 'Status: Connection Failed';
+    console.error('Failed to connect:', error);
   }
 }
