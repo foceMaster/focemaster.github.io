@@ -35,7 +35,7 @@
   <p>I usually use \(g\) as shorthand for \(F_n\) and \(\gamma\) as shorthand for \(F_{n-1}\). With that notation, the equation becomes</p>
   <p>\(F_{2n} = g^2+2g\gamma\)</p>
   <p><br>Calculating this for \(F_{3n}\), we find that it's equal to \(2g^3+3g^2\gamma+3g\gamma^2\).</p>
-  <p>These results can be displayed in a triangle, representing the coefficients of the polynomial for \(F_{kn}\).</p>
+  <p>These results can be displayed in a triangle, representing the coefficients of the polynomial for \(F_{kn}\), where \(k\) is the row.</p>
   <div class="triangle">
     <div class="triangle-row">\( 1 \quad 2\)</div>
     <div class="triangle-row">\( 2 \quad 3 \quad 3 \)</div>
@@ -50,6 +50,10 @@
         <div class="triangle-row">\( 5 \quad 10 \quad 20 \quad 15 \quad 5 \quad 0 \)</div>
         <div class="triangle-row">\( 8 \quad 30 \quad 45 \quad 40 \quad 15 \quad 6 \quad 0 \)</div>
     </div>
+  <p>No, I haven't calculated any more rows. It takes too long...</p>
+  <p>The numbers on the left are Fibonacci numbers, because when \(n=1\), \(F_{kn} = F_k\)</p>
+  <p>The rightmost numbres are always \(0\), because when \(n=0\), \(F_{kn} = F_0 = 0\).</p>
+  <p>The numbers to the left of the zeros are equal to \(k\). I've no idea why.</p>
 </body>
 
 </html>
