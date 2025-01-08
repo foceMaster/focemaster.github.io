@@ -6,7 +6,16 @@
     <title>Fibonacci problem</title>
     <!-- Include the MathJax Library -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+    <style>
+        .triangle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .triangle-row {
+            margin: 5px 0;
+        }
+    </style>
   </head>
   
 <body>
@@ -27,6 +36,13 @@
   <p>\(F_{2n} = g^2+2g\gamma\)</p>
   <p><br>Calculating this for \(F_{3n}\), we find that it's equal to \(2g^3+3g^2\gamma+3g\gamma^2\).</p>
   <p>These results can be displayed in a triangle, representing the coefficients of the polynomial for \(F_{kn}\).</p>
+  <div class="triangle">
+        <div class="triangle-row">\( 1 \quad 2 \quad 0 \)</div>
+        <div class="triangle-row">\( 2 \quad 3 \quad 3 \quad 0 \)</div>
+        <div class="triangle-row">\( 3 \quad 8 \quad 6 \quad 4 \quad 0 \)</div>
+        <div class="triangle-row">\( 5 \quad 10 \quad 20 \quad 15 \quad 5 \quad 0 \)</div>
+        <div class="triangle-row">\( 8 \quad 30 \quad 45 \quad 40 \quad 15 \quad 6 \quad 0 \)</div>
+    </div>
 </body>
 
 </html>
