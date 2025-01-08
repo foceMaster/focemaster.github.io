@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LaTeX test (3)</title>
+    <title>Fibonacci problem</title>
     <!-- Include the MathJax Library -->
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -12,7 +12,7 @@
 <body>
   <h1>Fibonacci I guess</h1>
   <p>Let \(S_n\) be a Fibonacci-like sequence with start numbers \(a\) and \(b)\.</p>
-  <p>\(S_1 = a)\ and \(S_2 = b\). \(S_3 = a + b\). \(S_4 = S_2 + S_3 = b + a + b = a + 2b\). \(S_n = aF_{n-1} + bF_n\)</p>
+  <p>\(S_1 = a\) and \(S_2 = b\). \(S_3 = a + b\). \(S_4 = S_2 + S_3 = b + a + b = a + 2b\). \(S_n = aF_{n-1} + bF_n\)</p>
 </body>
 
 </html>
