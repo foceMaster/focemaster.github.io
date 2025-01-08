@@ -72,10 +72,14 @@
   <p>which gives the correct coefficients.</p>
 
   <p><br>Using the above mentioned formula \(F_{m+n} = F_{n-1}F_{m}+F_{n}F_{m+1}\), we can derive a formula for \(F_{nm}\).</p>
-  <p>\(F_{n(k+1)} = F_{nm} = F_{n-1}F_{n(m-1)} + F_nF_{n(m-1)+1}\)</p>
+  <p>\(F_{kn+n} = F_{n(k+1)} = F_{nm} = F_{n-1}F_{n(m-1)} + F_nF_{n(m-1)+1}\)</p>
   <p>I haven't found any use for this, but it's cool. Maybe the longer factors could be broken down using the same formula.</p>
 
-  
+  <p><br>Using the - you guessed it - \(F_{m+n} = F_{n-1}F_{m}+F_{n}F_{m+1}\) formula, we can also get a polynomial for \(F_{-n}\).</p>
+  <p>\(F_{-n} = F_{n-2n} = F_nF_{-2n+1} + F_{n-1}F_{-2n}\)</p>
+  <p>\(F_{-2n}\) is equal to -F_{2n} and F_{-2n+1} is equal to F_{2n-1}</p>
+  <p>Simplifying, we get \(g^3-g^2\gamma-g\gamma^2\).</p>
+  <p></p>
 </body>
 
 </html>
