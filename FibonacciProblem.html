@@ -70,8 +70,9 @@
   <p>Setting this up as a matrix multiplication (solely for the purpose of feeling professional) gives</p>
   <p>\[\begin{bmatrix}1 & 1 \\8 & 4\end{bmatrix}^{-1}\begin{bmatrix}14 \\88\end{bmatrix}=\begin{bmatrix}8 \\6\end{bmatrix}\]</p>
   <p>which gives the correct coefficients.</p>
+  <p>This works but doesn't give any better understanding of the polynomials. The next paragraphs are about some interesting and potentially useful findings.</p>
 
-  <p><br><br>Using the above mentioned formula \(F_{m+n} = F_{n-1}F_{m}+F_{n}F_{m+1}\), we can derive a formula for \(F_{nm}\).</p>
+  <p><br><br>Using the formula mentioned above, \(F_{m+n} = F_{n-1}F_{m}+F_{n}F_{m+1}\), we can derive a formula for \(F_{nm}\).</p>
   <p>\(F_{kn+n} = F_{n(k+1)} = F_{nm} = F_{n-1}F_{n(m-1)} + F_nF_{n(m-1)+1}\)</p>
   <p>I haven't found any use for this, but it's cool. Maybe the longer factors could be broken down using the same formula.</p>
 
