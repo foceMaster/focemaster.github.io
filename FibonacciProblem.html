@@ -28,7 +28,7 @@
   <p>Let \(a = F_{m}\) and \(b = F_{m+1}\).</p>
   <p>\(S_n = F_{n-2}F_{m}+F_{n-1}F_{m+1} = F_{n-1+m}\)</p>
   <p>\(\Rightarrow F_{m+n} = F_{n-1}F_{m}+F_{n}F_{m+1}\)</p>
-  <p>Does this make sense? If not, just pretend it's an axiom.</p>
+  <p>I hope this makes sense. If not, please just forgive me and pretend it's an axiom.</p>
   <p>With this formula, we can calculate \(F_{n+n} = F_{2n}\)</p>
   <p>\(= F_{n-1}F_n+F_nF_{n+1} = F_{n-1}F_n+F_n(F_{n-1}+F_n)\)</p>
   <p>\(= F_{n-1}F_n+F_{n-1}F_n+F_n^2 = F_n^2 + 2F_{n-1}F_n\)</p>
@@ -53,7 +53,7 @@
   <p>No, I haven't calculated any more rows. It takes too long...</p>
   <p>The numbers on the left are Fibonacci numbers, because when \(n=1\), \(F_{kn} = F_k\)</p>
   <p>The rightmost numbres are always \(0\), because when \(n=0\), \(F_{kn} = F_0 = 0\).</p>
-  <p>The numbers to the left of the zeros are equal to \(k\). I've no idea why.</p>
+  <p>The numbers to the left of the zeros (\(g\gamma^{k-1}\)) are equal to \(k\). I've no idea why.</p>
   <p>I'm trying to understand the "nontrivial" part of the triangle, the part that doesn't follow any obvious pattern.</p>
   <div class="triangle">
       <div class="triangle-row">\( 3\)</div>
@@ -90,7 +90,7 @@
         <div class="triangle-row">\( 3 \quad 10 \quad 11 \quad 7 \quad 0 \quad 1 \)</div>
     </div>
   <p>I haven't calculated the row for \(F_{6n-1}\)...</p>
-  <p>When this triangle is "added" to the other one, it becomes the triangle for \(F_{kn+1}\)</p>
+  <p>When this triangle is "added" to the other one, it becomes the triangle for \(F_{kn+1}\).</p>
   <p>If you want to find really big Fibonacci numbers, you could use these polynomials to calculate \(F_{kn}\) and \(F_{kn-1}\), which you could then use as \(F_n\) and \(F_{n-1}\).</p>
 </body>
 
