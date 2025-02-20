@@ -1,3 +1,3 @@
-function print(str input){
+function test(str input){
 alert(input);
 }
