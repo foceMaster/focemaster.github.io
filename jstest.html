@@ -16,35 +16,26 @@
     <p><strong>Selected Line:</strong></p>
     <pre id="output"></pre>
 
+    <script src="fileReader.js"></script> <!-- Link to the fileReader.js -->
     <script>
-        function getLineByNumber(content, lineNumber) {
-            const lines = content.split(/\r?\n/); // Split the content into lines
-            return lines[lineNumber - 1] || ''; // Return the requested line (1-based index)
-        }
-
-        let fileContent = ''; // Store the file content globally for later use
-
-        document.getElementById("fileInput").addEventListener("change", function(event) {
-            const file = event.target.files[0]; // Get the selected file
-            if (!file) return;
-
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                fileContent = e.target.result; // Store the file content as a string
-            };
-            
-            reader.readAsText(file); // Read the file as text
-        });
-
         document.getElementById("showLineButton").addEventListener("click", function() {
+            const fileInput = document.getElementById("fileInput");
             const lineNumber = parseInt(document.getElementById("lineNumberInput").value);
+
+            if (!fileInput.files[0]) {
+                alert("Please select a file.");
+                return;
+            }
+
             if (isNaN(lineNumber) || lineNumber < 1) {
                 alert("Please enter a valid line number.");
                 return;
             }
-            const line = getLineByNumber(fileContent, lineNumber); // Get the line by number
-            document.getElementById("output").textContent = line; // Display the line
+
+            const file = fileInput.files[0];
+            getLineByNumber(file, lineNumber, function(line) {
+                document.getElementById("output").textContent = line; // Display the line
+            });
         });
     </script>
 </body>
