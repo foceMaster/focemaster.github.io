@@ -38,5 +38,16 @@
             });
         });
     </script>
+
+    <br>
+    <input type="text" id="textInput" placeholder="Enter text">
+    <button id="submitButton">Submit</button>
+    <script src="test.js"></script>
+    <script>
+        document.getElementById("submitButton").addEventListener("click", function() {
+        const userText = document.getElementById("textInput").value;
+        document.getElementById("output").textContent = userText; // Display input text
+        });
+    </script>
 </body>
 </html>
