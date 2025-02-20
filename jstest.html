@@ -3,26 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Read First Line of File</title>
+    <title>Display Specific Line from Text File</title>
 </head>
 <body>
     <h2>Select a .txt file</h2>
     <input type="file" id="fileInput" accept=".txt">
-    <p><strong>First line:</strong></p>
+    
+    <h3>Enter a line number:</h3>
+    <input type="number" id="lineNumberInput" min="1">
+    <button id="showLineButton">Show Line</button>
+
+    <p><strong>Selected Line:</strong></p>
     <pre id="output"></pre>
 
     <script>
+        function getLineByNumber(content, lineNumber) {
+            const lines = content.split(/\r?\n/); // Split the content into lines
+            return lines[lineNumber - 1] || ''; // Return the requested line (1-based index)
+        }
+
+        let fileContent = ''; // Store the file content globally for later use
+
         document.getElementById("fileInput").addEventListener("change", function(event) {
             const file = event.target.files[0]; // Get the selected file
             if (!file) return;
 
             const reader = new FileReader();
+            
             reader.onload = function(e) {
-                const content = e.target.result;
-                const firstLine = content.split(/\r?\n/)[0]; // Get the first line
-                document.getElementById("output").textContent = firstLine; // Display first line
+                fileContent = e.target.result; // Store the file content as a string
             };
-            reader.readAsText(file); // Read file as text
+            
+            reader.readAsText(file); // Read the file as text
+        });
+
+        document.getElementById("showLineButton").addEventListener("click", function() {
+            const lineNumber = parseInt(document.getElementById("lineNumberInput").value);
+            if (isNaN(lineNumber) || lineNumber < 1) {
+                alert("Please enter a valid line number.");
+                return;
+            }
+            const line = getLineByNumber(fileContent, lineNumber); // Get the line by number
+            document.getElementById("output").textContent = line; // Display the line
         });
     </script>
 </body>
