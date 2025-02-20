@@ -1,4 +1,4 @@
-function test(str input){
+function test(input){
 alert(input);
 }
 window.test = test;
