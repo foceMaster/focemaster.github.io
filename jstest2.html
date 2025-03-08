@@ -3,30 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Folder as ZIP</title>
+    <title>Download Minecraft Datapack</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 </head>
 <body>
-    <button onclick="downloadZip()">Download Folder</button>
+    <button onclick="downloadZip()">Download Datapack</button>
 
     <script>
         function downloadZip() {
             const zip = new JSZip();
 
-            // Create a folder structure inside the ZIP
-            const folder = zip.folder("MyFolder");
-            folder.file("file1.txt", "Hello, this is file 1.");
-            folder.file("file2.txt", "This is file 2 inside MyFolder.");
+            // Create the main datapack folder
+            const datapack = zip.folder("MyDatapack");
 
-            // Add a nested folder
-            const subFolder = folder.folder("SubFolder");
-            subFolder.file("file3.txt", "This is inside SubFolder.");
+            // Create 'data' folder and subfolders
+            const dataFolder = datapack.folder("data");
+            const minecraftFolder = dataFolder.folder("minecraft");
+            const tagsFolder = minecraftFolder.folder("tags");
+            const functionFolder = tagsFolder.folder("function");
+            const namespaceFolder = dataFolder.folder("namespace");
+            const namespaceFunctionFolder = namespaceFolder.folder("function");
 
-            // Generate the ZIP and trigger download
+            // Add pack.mcmeta
+            const packMcmetaContent = JSON.stringify({
+                "pack": {
+                    "pack_format": 61,
+                    "description": "My Custom Minecraft Datapack"
+                }
+            }, null, 4); // Pretty-printed JSON
+
+            datapack.file("pack.mcmeta", packMcmetaContent);
+
+            // Add load.json
+            const loadJsonContent = JSON.stringify({
+                "values": [
+                    "namespace:load"
+                ]
+            }, null, 4); // Pretty-printed JSON
+
+            functionFolder.file("load.json", loadJsonContent);
+
+            // Add load.mcfunction
+            const loadMcFunctionContent = "say hello\n"; // Newline ensures proper formatting
+
+            namespaceFunctionFolder.file("load.mcfunction", loadMcFunctionContent);
+
+            // Generate ZIP and trigger download
             zip.generateAsync({ type: "blob" }).then(function (content) {
                 const a = document.createElement("a");
                 a.href = URL.createObjectURL(content);
-                a.download = "MyFolder.zip";
+                a.download = "MyDatapack.zip";
                 a.click();
             });
         }
